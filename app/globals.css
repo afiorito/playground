@@ -1,26 +1,145 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #0a0a0f;
+  --foreground: #e0e0e8;
+  --surface: #1a1a2e;
+  --surface-border: #2a2a4a;
+  --neon-pink: #ff2d95;
+  --neon-cyan: #00f0ff;
+  --neon-yellow: #ffe14d;
+  --neon-green: #39ff14;
+  --neon-orange: #ff6b2b;
+  --muted: #8888aa;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-surface-border: var(--surface-border);
+  --color-neon-pink: var(--neon-pink);
+  --color-neon-cyan: var(--neon-cyan);
+  --color-neon-yellow: var(--neon-yellow);
+  --color-neon-green: var(--neon-green);
+  --color-neon-orange: var(--neon-orange);
+  --color-muted: var(--muted);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --font-display: var(--font-bungee-shade);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+/* Neon text glow utilities */
+.neon-pink {
+  color: var(--neon-pink);
+  text-shadow:
+    0 0 4px var(--neon-pink),
+    0 0 11px var(--neon-pink);
+}
+
+.neon-cyan {
+  color: var(--neon-cyan);
+  text-shadow:
+    0 0 4px var(--neon-cyan),
+    0 0 11px var(--neon-cyan);
+}
+
+.neon-yellow {
+  color: var(--neon-yellow);
+  text-shadow:
+    0 0 4px var(--neon-yellow),
+    0 0 11px var(--neon-yellow);
+}
+
+.neon-green {
+  color: var(--neon-green);
+  text-shadow:
+    0 0 4px var(--neon-green),
+    0 0 11px var(--neon-green);
+}
+
+.neon-orange {
+  color: var(--neon-orange);
+  text-shadow:
+    0 0 4px var(--neon-orange),
+    0 0 11px var(--neon-orange);
+}
+
+/* Neon box glow */
+.neon-box-pink {
+  box-shadow:
+    0 0 3px var(--neon-pink),
+    inset 0 0 3px rgba(255, 45, 149, 0.05);
+  border-color: var(--neon-pink);
+}
+
+.neon-box-cyan {
+  box-shadow:
+    0 0 3px var(--neon-cyan),
+    inset 0 0 3px rgba(0, 240, 255, 0.05);
+  border-color: var(--neon-cyan);
+}
+
+.neon-box-yellow {
+  box-shadow:
+    0 0 3px var(--neon-yellow),
+    inset 0 0 3px rgba(255, 225, 77, 0.05);
+  border-color: var(--neon-yellow);
+}
+
+/* Neon flicker animation */
+@keyframes neon-flicker {
+  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+    opacity: 1;
+  }
+  20%, 24%, 55% {
+    opacity: 0.6;
+  }
+}
+
+.animate-neon-flicker {
+  animation: neon-flicker 3s infinite alternate;
+}
+
+/* Pulse animation for badges */
+@keyframes neon-pulse {
+  0%, 100% {
+    box-shadow:
+      0 0 3px var(--neon-green);
+  }
+  50% {
+    box-shadow:
+      0 0 6px var(--neon-green),
+      0 0 12px var(--neon-green);
+  }
+}
+
+.animate-neon-pulse {
+  animation: neon-pulse 2s ease-in-out infinite;
+}
+
+/* Star rating styles */
+.star-interactive:hover ~ .star-interactive {
+  color: var(--surface-border);
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--surface-border);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--muted);
 }
