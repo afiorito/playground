@@ -1,12 +1,12 @@
 "use client";
 
-import { usePlaceStats } from "@/lib/hooks/use-place-stats";
-import { useUserStats } from "@/lib/hooks/use-user-stats";
-import { computeTripStats } from "@/lib/utils/stats";
 import { StatCard } from "@/components/stats/stat-card";
 import { StatsGrid } from "@/components/stats/stats-grid";
 import { TripSummaryCard } from "@/components/stats/trip-summary-card";
 import { LoadingSpinner } from "@/components/ui/loading-spinner";
+import { usePlaceStats } from "@/lib/hooks/use-place-stats";
+import { useUserStats } from "@/lib/hooks/use-user-stats";
+import { computeTripStats } from "@/lib/utils/stats";
 
 export default function StatsPage() {
   const { stats: placeStats, isLoading: placesLoading } = usePlaceStats();
@@ -28,14 +28,9 @@ export default function StatsPage() {
         Trip Stats
       </h1>
 
-      {/* Trip summary card */}
-      <div>
-        <h2 className="font-display text-lg neon-pink mb-3">
-          Trip Summary Card
-        </h2>
-        <TripSummaryCard stats={tripStats} />
-      </div>
+      <TripSummaryCard stats={tripStats} />
 
+      <h2 className="font-display text-lg neon-pink mb-3">Trip Summary</h2>
       <StatsGrid>
         <StatCard
           label="Stops Visited"

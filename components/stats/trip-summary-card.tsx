@@ -1,12 +1,12 @@
 "use client";
 
-import { useRef } from "react";
-import { toPng } from "html-to-image";
-import { Button } from "@/components/ui/button";
 import { StarDisplay } from "@/components/ratings/star-display";
-import { Download, Share2 } from "lucide-react";
-import { toast } from "sonner";
+import { Button } from "@/components/ui/button";
 import type { TripStatsData } from "@/lib/utils/stats";
+import { toPng } from "html-to-image";
+import { Download, Share2 } from "lucide-react";
+import { useRef } from "react";
+import { toast } from "sonner";
 
 interface TripSummaryCardProps {
   stats: TripStatsData;
@@ -70,7 +70,6 @@ export function TripSummaryCard({ stats }: TripSummaryCardProps) {
           >
             Hot Diggity
           </h2>
-          <p className="text-sm text-muted">Trip Summary</p>
         </div>
 
         <div className="grid grid-cols-3 gap-3 text-center">
