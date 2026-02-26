@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useAuth } from "@/components/providers/auth-provider";
 import { cn } from "@/lib/utils/cn";
-import { Map, Trophy, BarChart3, User, Shield, LogOut } from "lucide-react";
+import { Map, Trophy, BarChart3, User, Shield } from "lucide-react";
 
 const navLinks = [
   { href: "/roadmap", label: "Roadmap", icon: Map },
@@ -15,7 +15,7 @@ const navLinks = [
 
 export function Navbar() {
   const pathname = usePathname();
-  const { profile, isAdmin, signOut } = useAuth();
+  const { profile, isAdmin } = useAuth();
 
   return (
     <nav className="hidden md:block border-b border-surface-border bg-surface/80 backdrop-blur-sm sticky top-0 z-40">
@@ -54,12 +54,6 @@ export function Navbar() {
               Admin
             </Link>
           )}
-          <button
-            onClick={signOut}
-            className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-muted hover:text-foreground hover:bg-surface-border/30 transition-colors ml-2"
-          >
-            <LogOut size={16} />
-          </button>
         </div>
       </div>
     </nav>

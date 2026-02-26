@@ -1,11 +1,11 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-import { cn } from "@/lib/utils/cn";
 import { StarDisplay } from "@/components/ratings/star-display";
 import { Badge } from "@/components/ui/badge";
-import { MapPin, ExternalLink } from "lucide-react";
+import { cn } from "@/lib/utils/cn";
 import type { PlaceStats } from "@/types";
+import { ExternalLink, MapPin } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 interface PlaceCardProps {
   place: PlaceStats;
@@ -16,7 +16,7 @@ interface PlaceCardProps {
 
 const medalColors: Record<number, string> = {
   1: "neon-yellow",
-  2: "text-gray-300",
+  2: "neon-silver",
   3: "neon-orange",
 };
 
@@ -28,13 +28,10 @@ export function PlaceCard({
 }: PlaceCardProps) {
   const router = useRouter();
 
-  const statusBadge = place.is_visited ? (
-    <Badge variant="visited">Visited</Badge>
-  ) : isNext ? (
-    <Badge variant="next">Next Stop</Badge>
-  ) : (
-    <Badge variant="upcoming">Upcoming</Badge>
-  );
+  const statusBadge =
+    !place.is_visited && isNext ? (
+      <Badge variant="next">Next Stop</Badge>
+    ) : null;
 
   return (
     <div
@@ -66,15 +63,13 @@ export function PlaceCard({
         )}
 
         <div className="flex-1 min-w-0 space-y-1">
-          <div className="flex items-start justify-between gap-2">
-            <div className="flex items-center gap-2">
+          <div className="flex items-start justify-between gap-1">
+            <div className="flex items-center gap-2 min-w-0">
               {variant === "leaderboard" && rank != null && (
                 <span
                   className={cn(
                     "text-lg font-bold font-mono",
-                    rank <= 3
-                      ? medalColors[rank]
-                      : "text-muted",
+                    rank <= 3 ? medalColors[rank] : "text-muted",
                   )}
                 >
                   #{rank}
@@ -85,9 +80,9 @@ export function PlaceCard({
             {statusBadge}
           </div>
 
-          <p className="text-sm text-muted truncate flex items-center gap-1">
-            <MapPin size={12} />
-            {place.address}
+          <p className="text-sm text-muted flex items-center gap-1 min-w-0">
+            <MapPin size={12} className="flex-shrink-0" />
+            <span className="truncate">{place.address}</span>
           </p>
 
           {place.avg_rating != null && (
@@ -97,7 +92,8 @@ export function PlaceCard({
                 {place.avg_rating.toFixed(1)}
               </span>
               <span className="text-xs text-muted">
-                ({place.rating_count} {place.rating_count === 1 ? "rating" : "ratings"})
+                ({place.rating_count}{" "}
+                {place.rating_count === 1 ? "rating" : "ratings"})
               </span>
             </div>
           )}

@@ -1,9 +1,10 @@
 "use client";
 
-import { usePlaceStats } from "@/lib/hooks/use-place-stats";
 import { PlaceCard } from "@/components/places/place-card";
 import { PlaceTimeline } from "@/components/places/place-timeline";
 import { LoadingSpinner } from "@/components/ui/loading-spinner";
+import { usePlaceStats } from "@/lib/hooks/use-place-stats";
+import { ExternalLink } from "lucide-react";
 
 export default function RoadmapPage() {
   const { stats, isLoading } = usePlaceStats();
@@ -21,9 +22,21 @@ export default function RoadmapPage() {
 
   return (
     <div className="space-y-2">
-      <h1 className="font-display text-2xl sm:text-3xl neon-cyan mb-6">
+      <h1 className="font-display text-2xl sm:text-3xl neon-cyan mb-2">
         The Roadmap
       </h1>
+
+      <div className="text-sm text-muted mb-6">
+        <a
+          href="https://maps.app.goo.gl/jGt9iruDxP4QrstF7"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center gap-1 text-cyan-400 hover:text-cyan-300 underline underline-offset-2"
+        >
+          <ExternalLink size={12} />
+          Hot Diggity Map
+        </a>
+      </div>
 
       {stats.length === 0 ? (
         <div className="text-center py-16 text-muted">
@@ -34,18 +47,15 @@ export default function RoadmapPage() {
       ) : (
         <div className="space-y-0">
           {stats.map((place, index) => (
-            <div key={place.id} className="flex gap-4">
+            <div key={place.id} className="flex gap-3">
               <PlaceTimeline
                 isVisited={place.is_visited}
                 isNext={index === nextIndex}
                 isFirst={index === 0}
                 isLast={index === stats.length - 1}
               />
-              <div className="flex-1 pb-4">
-                <PlaceCard
-                  place={place}
-                  isNext={index === nextIndex}
-                />
+              <div className="flex-1 min-w-0 pb-4">
+                <PlaceCard place={place} isNext={index === nextIndex} />
               </div>
             </div>
           ))}

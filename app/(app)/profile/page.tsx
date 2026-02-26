@@ -8,13 +8,13 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { LoadingSpinner } from "@/components/ui/loading-spinner";
 import { StarDisplay } from "@/components/ratings/star-display";
-import { LogOut, User, Shield } from "lucide-react";
+import { User, Shield } from "lucide-react";
 import Link from "next/link";
 import { toast } from "sonner";
 
 export default function ProfilePage() {
   const supabase = useSupabase();
-  const { user, profile, isAdmin, signOut } = useAuth();
+  const { user, profile, isAdmin } = useAuth();
   const [displayName, setDisplayName] = useState(profile?.display_name ?? "");
   const [isSaving, setIsSaving] = useState(false);
 
@@ -141,11 +141,6 @@ export default function ProfilePage() {
         )}
       </div>
 
-      {/* Sign out */}
-      <Button variant="ghost" onClick={signOut} className="w-full">
-        <LogOut size={16} />
-        Sign Out
-      </Button>
     </div>
   );
 }

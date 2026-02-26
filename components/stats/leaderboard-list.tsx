@@ -21,6 +21,17 @@ export function LeaderboardList({ places }: LeaderboardListProps) {
     );
   }
 
+  const ranks: number[] = [];
+  for (let i = 0; i < ranked.length; i++) {
+    if (i === 0) {
+      ranks.push(1);
+    } else if (ranked[i].avg_rating === ranked[i - 1].avg_rating) {
+      ranks.push(ranks[i - 1]);
+    } else {
+      ranks.push(ranks[i - 1] + 1);
+    }
+  }
+
   return (
     <div className="space-y-3">
       {ranked.map((place, index) => (
@@ -28,7 +39,7 @@ export function LeaderboardList({ places }: LeaderboardListProps) {
           key={place.id}
           place={place}
           variant="leaderboard"
-          rank={index + 1}
+          rank={ranks[index]}
         />
       ))}
     </div>

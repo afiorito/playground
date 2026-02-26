@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect } from "react";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useSupabase } from "@/components/providers/supabase-provider";
 import type { PlaceStats } from "@/types";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useEffect } from "react";
 
 export function usePlaceStats() {
   const supabase = useSupabase();

@@ -28,6 +28,14 @@ export default function StatsPage() {
         Trip Stats
       </h1>
 
+      {/* Trip summary card */}
+      <div>
+        <h2 className="font-display text-lg neon-pink mb-3">
+          Trip Summary Card
+        </h2>
+        <TripSummaryCard stats={tripStats} />
+      </div>
+
       <StatsGrid>
         <StatCard
           label="Stops Visited"
@@ -100,14 +108,6 @@ export default function StatsPage() {
           </div>
         </div>
       )}
-
-      {/* Trip summary card */}
-      <div>
-        <h2 className="font-display text-lg neon-pink mb-3">
-          Trip Summary Card
-        </h2>
-        <TripSummaryCard stats={tripStats} />
-      </div>
     </div>
   );
 }

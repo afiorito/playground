@@ -71,6 +71,13 @@ body {
     0 0 11px var(--neon-orange);
 }
 
+.neon-silver {
+  color: #a0a0a0;
+  text-shadow:
+    0 0 4px #a0a0a0,
+    0 0 11px #808080;
+}
+
 /* Neon box glow */
 .neon-box-pink {
   box-shadow:
