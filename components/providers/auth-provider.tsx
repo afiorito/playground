@@ -1,15 +1,15 @@
 "use client";
 
+import type { Profile } from "@/types";
+import type { User } from "@supabase/supabase-js";
 import {
   createContext,
   useContext,
-  useState,
   useEffect,
+  useState,
   type ReactNode,
 } from "react";
 import { useSupabase } from "./supabase-provider";
-import type { User } from "@supabase/supabase-js";
-import type { Profile } from "@/types";
 
 type AuthContextType = {
   user: User | null;
@@ -41,13 +41,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   useEffect(() => {
-    // Get initial session
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      const currentUser = session?.user ?? null;
-      setUser(currentUser);
-      if (currentUser) {
-        fetchProfile(currentUser.id);
+    // Validate session with the server (not just the local cookie)
+    supabase.auth.getUser().then(({ data: { user: validatedUser }, error }) => {
+      if (error || !validatedUser) {
+        // User no longer exists or session is invalid — clear it
+        supabase.auth.signOut();
+        setUser(null);
+        setProfile(null);
+        setIsLoading(false);
+        return;
       }
+      setUser(validatedUser);
+      fetchProfile(validatedUser.id);
       setIsLoading(false);
     });
 

@@ -17,8 +17,9 @@ export default function RoadmapPage() {
     );
   }
 
-  // Find the first unvisited place (the "next stop")
-  const nextIndex = stats.findIndex((s) => !s.is_visited);
+  // Find the next stop: the one right after the last visited/rated place
+  const lastVisitedIndex = stats.findLastIndex((s) => s.is_visited);
+  const nextIndex = lastVisitedIndex + 1 < stats.length ? lastVisitedIndex + 1 : -1;
 
   return (
     <div className="space-y-2">
